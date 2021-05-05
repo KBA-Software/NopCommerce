@@ -1,0 +1,18 @@
+﻿{
+  "Group": "7Spikes",
+  "FriendlyName": "Nop Smart Product Collections",
+  "SupportedVersions": [
+    "4.30"
+  ],
+  "Author": "Seven Spikes Ltd",
+  "DisplayOrder": 1,
+  "FileName": "SevenSpikes.Nop.Plugins.SmartProductCollections.dll",
+  "Description": "With the Smart Product Collections you can organize your products into collections and display them on any of your website pages.",
+  "LimitedToStores": [],
+  "LimitedToCustomerRoles": [],
+  "DependsOnSystemNames": [
+    "SevenSpikes.Core"
+  ],
+  "SystemName": "SevenSpikes.Nop.Plugins.SmartProductCollections",
+  "Version": "4.3"
+}

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language Name="English">
+  <LocaleResource Name="SAPIntegration">
+    <Value>SAP integration</Value>
+  </LocaleResource>
+  <LocaleResource Name="SAPIntegration.RootMenu">
+    <Value>SAP</Value>
+  </LocaleResource>
+  <LocaleResource Name="SAPIntegration.Menu.Configure">
+    <Value>Configure</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="SAPIntegration.BackToList">
+    <Value>back to list</Value>
+  </LocaleResource>
+  
+  <LocaleResource Name="SAPIntegration.SAPConfigure.SapAPI">
+    <Value>SapAPI</Value>
+  </LocaleResource>
+  <LocaleResource Name="SAPIntegration.SAPConfigure.SapAPI.Hint">
+    <Value>SapAPI</Value>
+  </LocaleResource>
+  <LocaleResource Name="SAPIntegration.SAPConfigure.UserId">
+    <Value>UserId</Value>
+  </LocaleResource>
+  <LocaleResource Name="SAPIntegration.SAPConfigure.UserId.Hint">
+    <Value>UserId</Value>
+  </LocaleResource>
+  <LocaleResource Name="SAPIntegration.SAPConfigure.Password">
+    <Value>Password</Value>
+  </LocaleResource>
+  <LocaleResource Name="SAPIntegration.SAPConfigure.Password.Hint">
+    <Value>Password</Value>
+  </LocaleResource>
+</Language>

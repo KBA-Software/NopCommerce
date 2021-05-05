@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Misc",
+  "FriendlyName": "HANSAmed Admin Product Ribbon",
+  "SystemName": "Misc.HANSAmedProductRibbon",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.30" ],
+  "Author": "HANSAMed Ltd.",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Misc.HANSAmedProductRibbon.dll",
+  "Description": "HANSAmed Admin Product Ribbon"
+}

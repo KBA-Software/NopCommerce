@@ -1,0 +1,18 @@
+﻿{
+  "Group": "7Spikes",
+  "FriendlyName": "Nop Prev Next Product",
+  "SupportedVersions": [
+    "4.30"
+  ],
+  "Author": "Seven Spikes Ltd",
+  "DisplayOrder": 1,
+  "FileName": "SevenSpikes.Nop.Plugins.PrevNextProduct.dll",
+  "Description": "This plugin allows you to browse products in the same category directly from the product page of the currently viewed product.",
+  "LimitedToStores": [],
+  "LimitedToCustomerRoles": [],
+  "DependsOnSystemNames": [
+    "SevenSpikes.Core"
+  ],
+  "SystemName": "SevenSpikes.Nop.Plugins.PrevNextProduct",
+  "Version": "4.3"
+}

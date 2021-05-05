@@ -1,0 +1,79 @@
+﻿@using Nop.Plugin.Misc.HANSAmedProductRibbon.Models
+@model RibbonPictureSearchModel
+@using Nop.Web.Framework.Models.DataTables
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+<form asp-controller="MiscProductRibbon" asp-action="Configure" method="post" id="product-ribbon-form">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @await Html.PartialAsync("Table", new DataTablesModel
+           {
+               Name = "product-ribbon-grid",
+               UrlRead = new DataUrl("List", "MiscProductRibbon", null),
+               UrlDelete = new DataUrl("Delete", "MiscProductRibbon", null),
+               Length = Model.PageSize,
+               LengthMenu = Model.AvailablePageSizes,
+               ColumnCollection = new List<ColumnProperty>
+                {
+                    new ColumnProperty(nameof(RibbonPictureModel.PictureUrl))
+                    {
+                        Title = "Preview Picture",
+                        Width = "100",
+                        Render = new RenderPicture()
+                    },
+                    new ColumnProperty(nameof(RibbonPictureModel.PictureWidth))
+                    {
+                        Title = "Picture Width",
+                        Width = "100"
+                    },
+                    new ColumnProperty(nameof(RibbonPictureModel.PictureHeight))
+                    {
+                        Title ="Picture Height",
+                        Width = "100"
+                    },
+                    new ColumnProperty(nameof(RibbonPictureModel.Id))
+                    {
+                        Title = T("Admin.Common.Delete").Text,
+                        ClassName = NopColumnClassDefaults.Button,
+                        Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+                        Width = "100"
+                    }
+                    //new ColumnProperty(nameof(StorePickupPointModel.Id))
+                    //{
+                    //    Title = T("Admin.Common.Edit").Text,
+                    //    ClassName = NopColumnClassDefaults.Button,
+                    //    Width = "100",
+                    //    Render = new RenderCustom("renderColumnEdit")
+                    //},
+                }
+           })
+            </div>
+
+            @*<script>
+                function renderColumnEdit(data, type, row, meta) {
+                    return '<button onclick=\"javascript:OpenWindow(\'@Url.Content("~/Admin/PickupInStore/Edit/")' + data + '?btnId=btnRefresh&formId=product-ribbon-form\', 800, 800, true); return false;\" class="btn btn-default"><i class="fa fa-pencil"></i>@T("Admin.Common.Edit")</button>';
+                }
+            </script>*@
+
+            <div class="panel-footer">
+                <input type="submit" id="btnAddNewOption" class="btn btn-primary" value="@T("Plugins.Pickup.PickupInStore.AddNew")" onclick="javascript:OpenWindow('@(Url.Action("Create", "PickupInStore",  new { btnId = "btnRefresh", formId = "product-ribbon-form" }))', 800, 800, true); return false;" />
+                <input type="submit" id="btnRefresh" class="btn btn-default" style="display: none" />
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $('#btnRefresh').click(function () {
+                        //refresh grid
+                        updateTable('#product-ribbon-grid');
+
+                        //return false to don't reload a page
+                        return false;
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</form>

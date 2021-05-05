@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Shivaay",
+  "FriendlyName": "SAP Integration",
+  "SystemName": "Misc.SAPIntegration",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.30" ],
+  "Author": "Author Name",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Misc.SAPIntegration.dll",
+  "Description": "Send Data to SAP"
+}

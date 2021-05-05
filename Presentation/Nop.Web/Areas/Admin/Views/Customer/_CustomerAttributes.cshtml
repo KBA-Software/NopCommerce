@@ -1,0 +1,122 @@
+﻿@model IList<CustomerModel.CustomerAttributeModel>
+@using Nop.Core.Domain.Catalog;
+@using Nop.Services.Customers
+
+@foreach (var customerAttribute in Model)
+{
+    var controlId = $"{NopCustomerServicesDefaults.CustomerAttributePrefix}{customerAttribute.Id}";
+    var textPrompt = customerAttribute.Name;
+    var lblCtrl =   $"{"lblCustType_"}{customerAttribute.Id}";
+
+    <div class="form-group">
+        <div class="col-md-3">
+            <div class="label-wrapper">
+                <label class="control-label" id="@(lblCtrl)">
+                    @textPrompt
+                </label>
+            </div>
+        </div>
+        <div class="col-md-9">
+            @switch (customerAttribute.AttributeControlType)
+            {
+                case AttributeControlType.DropdownList:
+                    {
+                        <select name="@(controlId)" id="@(controlId)" class="form-control ddlCustomerType">
+                            @if (!customerAttribute.IsRequired)
+                            {
+                                <option value="0">---</option>
+                            }
+                            @foreach (var attributeValue in customerAttribute.Values)
+                            {
+                                <option selected="@attributeValue.IsPreSelected" value="@attributeValue.Id">@attributeValue.Name</option>
+                            }
+                        </select>
+                    }
+
+                    break;
+                case AttributeControlType.RadioList:
+                    {
+                        foreach (var attributeValue in customerAttribute.Values)
+                        {
+                            <div class="radio">
+                                <label>
+                                    <input id="@(controlId)_@(attributeValue.Id)" type="radio" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" />
+                                    @attributeValue.Name
+                                </label>
+                            </div>
+                        }
+                    }
+                    break;
+                case AttributeControlType.Checkboxes:
+                case AttributeControlType.ReadonlyCheckboxes:
+                    {
+                        foreach (var attributeValue in customerAttribute.Values)
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input id="@(controlId)_@(attributeValue.Id)" type="checkbox" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" @(customerAttribute.AttributeControlType == AttributeControlType.ReadonlyCheckboxes ? Html.Raw(" disabled=\"disabled\"") : null) />
+                                    @attributeValue.Name
+                                </label>
+                            </div>
+                        }
+                    }
+                    break;
+
+
+                case AttributeControlType.TextBox:
+                    {
+                        <input name="@(controlId)" type="text" id="@(controlId)" value="@(customerAttribute.DefaultValue)" class="form-control txtCustomerType" />
+                    }
+                    break;
+
+
+                case AttributeControlType.MultilineTextbox:
+                    {
+                        <textarea id="@(controlId)" class="form-control" name="@(controlId)">@(customerAttribute.DefaultValue)</textarea>
+                    }
+                    break;
+                case AttributeControlType.Datepicker:
+                case AttributeControlType.FileUpload:
+                case AttributeControlType.ColorSquares:
+                case AttributeControlType.ImageSquares:
+                    {
+                        //not support attribute type
+                    }
+                    break;
+            }
+        </div>
+    </div>
+
+
+}
+
+@*<script>
+    $(".ddlCustomerType").change(function () {
+        //var lbl = document.getElementsByClassName('lblCustType'); 
+        //for (var i = 0; i < lbl.length; i++) {
+        //    var lblText = lbl[i].innerText;
+            
+        //    if (lblText == 'Customer Type') {
+
+        //        alert(lblText);
+        //        $(".lblCustType").hide();
+        //    }
+        //    else {
+        //        alert(lblText);
+        //        $(".lblCustType").show();
+        //    }
+        //}
+       
+        if (this.value == 2) {
+            $(".txtCustomerType").hide();
+            $("#lblCustType_2").hide();
+            $("#lblCustType_3").hide();
+        }
+        else {
+            $(".txtCustomerType").show();
+
+            $("#lblCustType_2").show();
+            $("#lblCustType_3").show();
+        }
+    });
+</script>*@
