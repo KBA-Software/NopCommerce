@@ -16,21 +16,24 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Areas\Admin\Views\Configure.cshtml" />
+    <None Remove="Areas\Admin\Views\ProductRibbons\ProductRibbonList.cshtml" />
+    <None Remove="Areas\Admin\Views\ProductRibbons\_RibbonImageList.cshtml" />
     <None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
-    <None Remove="Views\Configure.cshtml" />
-    <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\ProductRibbons\Configure.cshtml">
+    <Content Include="Areas\Admin\Views\ProductRibbons\ProductRibbonList.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\ProductRibbons\_ribbonImageList.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Setting.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\ProductRibbons\RibbonImage.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Views\_ViewImports.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\Configure.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\_ViewImports.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -47,7 +50,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <!-- This target execute after "Build" target -->
   <Target Name="NopTarget" AfterTargets="Build">

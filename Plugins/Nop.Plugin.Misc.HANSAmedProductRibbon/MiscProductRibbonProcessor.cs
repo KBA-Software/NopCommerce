@@ -1,24 +1,15 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.IO;
-using System.Collections.Generic;
 using Nop.Core;
-using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Services.Logging;
-using Nop.Services.Messages;
 using Nop.Services.Plugins;
 using Nop.Data;
 using System.Xml;
 using Nop.Web.Framework.Menu;
 using Microsoft.AspNetCore.Routing;
 using Nop.Services.Localization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Nop.Plugin.Misc.HANSAmedProductRibbon
 {
@@ -55,7 +46,9 @@ namespace Nop.Plugin.Misc.HANSAmedProductRibbon
         public override string GetConfigurationPageUrl()
         {
             // Controller Name
-            return $"{_webHelper.GetStoreLocation()}Admin/MiscProductRibbon/Configure";
+            //return $"{_webHelper.GetStoreLocation()}Admin/MiscProductRibbon/Configure";
+            return $"{_webHelper.GetStoreLocation()}Admin/ProductRibbons/Setting";
+
         }
 
         /// <summary>
@@ -66,9 +59,11 @@ namespace Nop.Plugin.Misc.HANSAmedProductRibbon
             //Default Settings
             var settings = new MiscProductRibbonSettings
             {
-                DebugMode = true,
                 Enabled = true,
-
+                ProductBoxSelector = ".product-item, .item-holder",
+                ProductBoxPictureContainerSelector = ".picture, .item-picture",
+                ProductPagePictureParentContainerSelector = ".product-essential",
+                ProductPageBigPictureContainerSelector = ".picture"
             };
             _settingService.SaveSetting(settings);
             base.Install();
@@ -91,9 +86,31 @@ namespace Nop.Plugin.Misc.HANSAmedProductRibbon
             var configure = new SiteMapNode()
             {
                 SystemName = "HANSAmedProductRibbon.Configure",
-                Title = _localizationService.GetResource("Hansamed.Menu.Configure"),
+                Title ="Setting", // _localizationService.GetResource("Hansamed.Menu.Configure"),
                 ControllerName = "ProductRibbons",
-                ActionName = "Configure",
+                ActionName = "Setting",
+                Visible = true,
+                IconClass = "fa fa fa-dot-circle-o",
+                RouteValues = new RouteValueDictionary() { { "area", "Admin" } }
+            };
+
+            var ribbonPictures = new SiteMapNode()
+            {
+                SystemName = "HANSAmedProductRibbon.ribbonPictures",
+                Title = "Ribbon Images", 
+                ControllerName = "ProductRibbons",
+                ActionName = "RibbonImage",
+                Visible = true,
+                IconClass = "fa fa fa-dot-circle-o",
+                RouteValues = new RouteValueDictionary() { { "area", "Admin" } }
+            };
+
+            var productRibbons = new SiteMapNode()
+            {
+                SystemName = "HANSAmedProductRibbon.productRibbons",
+                Title = "Product Ribbons",
+                ControllerName = "ProductRibbons",
+                ActionName = "ProductRibbonList",
                 Visible = true,
                 IconClass = "fa fa fa-dot-circle-o",
                 RouteValues = new RouteValueDictionary() { { "area", "Admin" } }
@@ -108,8 +125,11 @@ namespace Nop.Plugin.Misc.HANSAmedProductRibbon
                 RouteValues = new RouteValueDictionary() { { "area", "Admin" } }
             };
             sapRoot.ChildNodes.Add(configure);
+            sapRoot.ChildNodes.Add(ribbonPictures);
+            sapRoot.ChildNodes.Add(productRibbons);
 
             rootNode.ChildNodes.Add(sapRoot);
+           
         }
 
 

@@ -1,0 +1,82 @@
+﻿@using Nop.Plugin.Misc.HANSAmedProductRibbon.Areas.Admin.Models
+@model ConfigurationModel
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+<div class="content">
+    <div class="form-horizontal">
+        @await Component.InvokeAsync("StoreScopeConfiguration")
+        <form asp-controller="MiscProductRibbon" asp-action="ConfigurePost" method="post">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-input="@Model.Enabled" />
+                                <nop-label asp-for="@Model.Enabled" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Enabled" />
+                                <span asp-validation-for="@Model.Enabled"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-input="@Model.ProductBoxSelector" />
+                                <nop-label asp-for="@Model.ProductBoxSelector" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.ProductBoxSelector" />
+                                <span asp-validation-for="@Model.ProductBoxSelector"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-input="@Model.ProductBoxPictureContainerSelector" />
+                                <nop-label asp-for="@Model.ProductBoxPictureContainerSelector" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.ProductBoxPictureContainerSelector" />
+                                <span asp-validation-for="@Model.ProductBoxPictureContainerSelector"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-input="@Model.ProductPagePictureParentContainerSelector" />
+                                <nop-label asp-for="@Model.ProductPagePictureParentContainerSelector" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.ProductPagePictureParentContainerSelector" />
+                                <span asp-validation-for="@Model.ProductPagePictureParentContainerSelector"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-input="@Model.ProductPageBigPictureContainerSelector" />
+                                <nop-label asp-for="@Model.ProductPageBigPictureContainerSelector" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.ProductPageBigPictureContainerSelector" />
+                                <span asp-validation-for="@Model.ProductPageBigPictureContainerSelector"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-9">
+                                <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
