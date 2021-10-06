@@ -1,4 +1,5 @@
 ﻿@model ShoppingCartModel
+@using System.Globalization;
 @{
     Layout = "_ColumnsOne";
 
@@ -9,13 +10,231 @@
 }
 @if (!Model.OnePageCheckoutEnabled)
 {
-    @await Component.InvokeAsync("CheckoutProgress", new {step = CheckoutProgressStep.Cart})
+    @await Component.InvokeAsync("CheckoutProgress", new { step = CheckoutProgressStep.Cart })
 }
+
+
+
+@if (Model.FreeProducts.Count >0)
+{
+    <div style="border:1px solid #e9e9e9; background-color: #fff;padding:10px;">
+    <table>
+        <thead style="border-bottom:solid;border-bottom-width:1px; border-bottom-color:lightgray;">
+            <tr>
+                <td style="font-weight:bold;" colspan="4">
+                    <span id="lblPromoHeading">Available Promos:</span>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var freePrd in Model.FreeProducts)
+            {
+            <tr>
+                <td style="padding-top:8px;padding-bottom:8px;">
+                    @freePrd.Promo
+                </td>
+
+                <td>
+                    @freePrd.FreeProductAvailable
+                </td>
+
+                <td>
+                    <button type="button" data-id="@freePrd.Id" value="Add Promo" class="btnPromolist">Add Promo</button>
+                </td>
+                <td class="tdCartBoxCaption" style="display:none;">
+                    @freePrd.CartBoxCaption
+                </td>
+                <td></td>
+
+                @*<td style="text-align:right;">
+                @if (freePrd.Requirements == "Minimum Buy Quantity Requirement")  // Check Free Product Type
+                {
+
+                @if (freePrd.AllProductAssignTo != "") // ProductsAssignedTo is not empty then you may qualify the Free Product
+                {
+                    int prdCount = 0;
+                    string[] prdIds = freePrd.MatchFromShoppingCart.Split(",");
+                    foreach (var prd in prdIds)
+                    {
+                        @if(prd != "")
+                        {
+                            prdCount = prdCount + Model.Items.Where(i => i.ProductId == Convert.ToInt32(prd)).Select(q => q.Quantity).FirstOrDefault();
+                        }
+                    }
+
+                    @if (prdCount >= freePrd.MinimumRequirementValue) // If product quantity is qualified then you can add free product
+                    {
+                        <button type="submit" id="btnAddPromo" class="btnPromolist">
+                            Add Promo
+                        </button>
+
+                        <script asp-location="Footer">
+                            $('#lblPromoHeading').text("Now you qualify for the following available promos:");
+                        </script>
+                    }
+
+                }
+            }
+            else if (freePrd.Requirements == "Minimum Order Subtotal Requirement")
+            {
+
+                decimal subTotal=0;
+                foreach (var cart in Model.Items)
+                {
+                    subTotal = subTotal + Convert.ToDecimal(cart.SubTotal.Replace("$",""));
+                }
+
+                @if (subTotal >= freePrd.MinimumRequirementValue)  // If Order SubTotal is qualified then you can add free product
+                {
+                    <button type="submit" id="btnAddPromo" class="btnPromolist">
+                        Add Promo
+                    </button>
+
+                    <script asp-location="Footer">
+                        $('#lblPromoHeading').text("Now you qualify for the following available promos:");</script>
+                }
+            }
+        </td>
+        <td class="tdCartBoxCaption" style="display:none;">
+            @freePrd.CartBoxCaption
+        </td>
+        <td class="tdFreeProductId" style="display:none;">
+            @freePrd.AllProductAssignTo
+        </td>*@
+            </tr>
+
+            }
+        </tbody>
+
+    </table>
+</div>
+<br />
+}
+
 <div class="page shopping-cart-page">
     <div class="page-title">
         <h1>@T("ShoppingCart")</h1>
     </div>
     <div class="page-body">
-        @await Component.InvokeAsync("OrderSummary", new { overriddenModel = Model})
+        @await Component.InvokeAsync("OrderSummary", new { overriddenModel = Model })
     </div>
 </div>
+
+<style>
+    .btnPromolist {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        background-color: #ffa101;
+        border-color: #ffa101;
+        outline-width: 0px;
+        border-width: 0px;
+        color: #fff !important;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+
+<script asp-location="Footer">
+
+    $(document).on('click', '.btnPromolist', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        var $cartCaption = $(this).closest("tr")    // Finds the closest row <tr>
+            .find(".tdCartBoxCaption")              // Gets a descendent with class="nr"
+            .text();                                // Retrieves the text within <td>
+          $(".cardTitle").text($cartCaption);
+
+        $('.free-holder').hide();
+        $('#freeproduct_' + id).show();
+    })
+
+
+    //$(document).ready(function () {
+
+        //$('.btnPromolist').on('click', function () {
+
+        //    var $cartCaption = $(this).closest("tr")    // Finds the closest row <tr>
+        //        .find(".tdCartBoxCaption")              // Gets a descendent with class="nr"
+        //        .text();                                // Retrieves the text within <td>
+
+        //    alert($cartCaption);
+        //    $("#lblCardTitle").text($cartCaption);
+
+
+        //    var $freeProductId = $(this).closest("tr")    // Finds the closest row <tr>
+        //        .find(".tdFreeProductId")              // Gets a descendent with class="nr"
+        //        .text();
+
+        //    var fPId = $freeProductId;
+        //    alert(fpId);
+
+
+
+
+
+            //var productOverviewModel = {};
+
+            //var person = {};
+            //person["First"] = $("#FirstName").val();
+            //person["Last"] = $("#LastName").val();
+
+            //$.ajax({
+            //    type: "POST",
+            //    contentType: "application/json; charset=utf-8",
+            //    url: "/Admin/AddPerson",
+            //    data: JSON.stringify(person),
+            //    dataType: "json",
+            //    success: function (result) {
+
+            //    },
+            //    error: function (result) {
+
+            //    }
+            //});
+
+
+            //[AcceptVerbs(HttpVerbs.Post)]
+            //    public ActionResult AddRelease(Person p)
+            //{
+            //    // Code to add person
+
+            //}
+
+
+            //$.ajax({
+            //    type: "GET",
+            //    url: "/ShoppingCart/GetFreeProduct",
+            //    data: { id: fPId },
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "JSON",
+            //    success: function (response) {
+            //        alert(response);
+            //        $('#freeShoppingCart').InnerHtml = response;
+
+            //        $("#addfreeProductBox").show();
+            //        //disable Quantity in shopping Cart Item box
+            //        $('.productQuantityTextBox').prop('readonly', true);
+            //    },
+            //    failure: function (response) {
+            //        alert("failure");
+            //    },
+            //    error: function (response) {
+            //        alert("error");
+            //    }
+            //});
+
+
+
+
+
+
+
+            //$("#addfreeProductBox").show();
+            ////disable Quantity in shopping Cart Item box
+            //$('.productQuantityTextBox').prop('readonly', true);
+        //});
+    //});
+</script>
